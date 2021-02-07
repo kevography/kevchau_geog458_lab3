@@ -90,12 +90,13 @@
             <a class="dropdown-item" href="#">Another action</a>
             <a class="dropdown-item" href="#">Something else here</a>
           </div>
-        </li-->
+        </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-      </form>
+      </form-->
+      </ul>
     </div>
   </nav>
 
@@ -122,7 +123,7 @@
     airports= L.geoJson.ajax("assets/airports.geojson", {
 
         onEachFeature: function (feature, layer) {
-            layer.bindPopup(feature.properties.AIRPT_NAME);
+            layer.bindPopup('Airport Name: ' + feature.properties.AIRPT_NAME);
             return feature.properties.CITY;
         },
         pointToLayer: function (feature, latlng) {
@@ -132,7 +133,7 @@
 
             return L.marker(latlng, {icon: L.divIcon({className: 'fa fa-plane marker-color-' + (id + 1).toString() })});
         },
-        attribution: 'Airport Data &copy; USGS | Washington counties &copy; Washington Data & Research | Base Map &copy; CartoDB | Made By Kevin Chau'
+        attribution: 'Airport Data &copy; USGS | US State Boundaries &copy; Mike Bostock @ D3 | Base Map &copy; CartoDB | Made By Kevin Chau'
     }).addTo(mymap);
 
 
@@ -156,6 +157,7 @@
       else  { id = 0; }
       return colors[id];
     }
+    /*
     // 7. Set style function that sets fill color.md property equal to number of airports
     function style(feature) {
         return {
@@ -166,10 +168,19 @@
             color: '#b4b4b4',
             dashArray: '4'
         };
-    }
-    // 8. Add county polygons
+    }*/
+    // 8. Add state polygons
     L.geoJson.ajax("assets/us-states.geojson", {
-        style: style
+        style: function style(feature) {
+            return {
+                fillColor: setColor(feature.properties.count),
+                fillOpacity: 0.4,
+                weight: 2,
+                opacity: 1,
+                color: '#b4b4b4',
+                dashArray: '4'
+            };
+        }
     }).addTo(mymap);
 
     // 6. Create Leaflet Control Object for Legend
