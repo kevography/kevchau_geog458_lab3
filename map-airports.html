@@ -146,7 +146,7 @@
     }
 
     // US States data
-    colors = chroma.scale('YlOrRd').colors(4);
+    colors = chroma.scale('Blues').colors(4);
 
     function setColor(numAirports) {
       var id = 0;
@@ -174,7 +174,7 @@
         style: function style(feature) {
             return {
                 fillColor: setColor(feature.properties.count),
-                fillOpacity: 0.4,
+                fillOpacity: 0.6,
                 weight: 2,
                 opacity: 1,
                 color: '#b4b4b4',
